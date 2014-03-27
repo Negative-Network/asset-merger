@@ -396,6 +396,22 @@ abstract class Kohana_Asset {
 		}
 		return Asset::html($this->type(), $this->destination_web(), $this->last_modified());
 	}
+	/**
+	 * Process and return the webpath 
+	 *
+	 * @param   bool  $process
+	 * @return  string
+	 */
+
+	public function get_webpath($process = FALSE)
+	{
+		if ($this->needs_recompile() and $this->copy())
+		{
+			// Recompile file
+			file_put_contents($this->destination_file(), $this->compile($process));
+		}
+		return $this->destination_web();
+	}
 
 	/**
 	 * Render inline HTML

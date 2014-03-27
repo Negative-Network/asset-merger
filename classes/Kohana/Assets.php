@@ -317,6 +317,51 @@ abstract class Kohana_Assets {
 	}
 
 	/**
+	 *
+	 * Process and return an array with the webpath (merge or not) by type
+	 * 
+	 * @return webpaths
+	 */
+	public function get_webpaths()
+	{
+		// Set html
+		$html = $this->_remote;
+
+		// Go through each asset group
+		foreach ($this->_groups as $type => $group)
+		{
+			if ( ! $group->count())
+				continue;
+
+            // Sort Collection assets
+            $group->sort();
+
+			if ($this->merge())
+			{
+				// Add merged file to html
+				$webpaths[$type][] = $group->get_webpath($this->_process);
+			}
+			else
+			{
+				foreach($group as $asset)
+				{
+					// Files not merged, add each of them to html
+					$webpaths[$type][] = $asset->get_webpath($this->_process);
+				}
+			}
+		}
+
+		foreach ($this->_conditional as $asset)
+		{
+			// Add conditional assets
+			$webpaths[] .= Asset::conditional($asset->get_webpath($this->_process), $asset->condition());
+		}
+
+		// Return html
+		return $webpaths;
+	}
+
+	/**
 	 * Renders inline HTML code
 	 *
 	 * @return string

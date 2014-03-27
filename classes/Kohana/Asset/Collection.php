@@ -177,6 +177,25 @@ abstract class Kohana_Asset_Collection implements Iterator, Countable, ArrayAcce
 	}
 
 	/**
+	 * Process and return the webpath 
+	 *
+	 * @param   bool  $process
+	 * @return  string
+	 */
+	public function get_webpath($process = FALSE)
+	{
+        $this->set_destinations();
+
+		if ($this->needs_recompile() AND $this->copy())
+		{
+			// Recompile file
+			file_put_contents($this->destination_file(), $this->compile($process));
+		}
+
+		return $this->destination_web();
+	}
+
+	/**
 	 * Render inline HTML
 	 *
 	 * @param   bool  $process
