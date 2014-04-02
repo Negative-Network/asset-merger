@@ -275,7 +275,7 @@ abstract class Kohana_Asset {
 	function __construct($type, $file, array $options = array(), $destination_path = NULL, $copy = TRUE, $folder = NULL)
 	{
 		// Set processor to use
-		$this->_processor   = Arr::get($options, 'processor', Kohana::$config->load('asset-merger')->get('processor.'.$type));
+		$this->_processor   = Arr::get($options, 'processor', Kohana::$config->load('asset-merger.processor.'.$type));
 
 		// Set condition
 		$this->_condition   = Arr::get($options, 'condition');
@@ -291,9 +291,9 @@ abstract class Kohana_Asset {
 		{
             $this->_load_paths  = $options['load_paths'][$type];
 		}
-		elseif (Kohana::$config->load('asset-merger')->get('load_paths.'.$type))
+		elseif (Kohana::$config->load('asset-merger.load_paths.'.$type))
 		{
-			$this->_load_paths  = Kohana::$config->load('asset-merger')->get('load_paths.'.$type);
+			$this->_load_paths  = Kohana::$config->load('asset-merger.load_paths.'.$type);
 		}
 
 		// Set type and file
@@ -332,7 +332,7 @@ abstract class Kohana_Asset {
 			throw new Kohana_Exception('Asset :file of type :type not found inside :paths', array(
 				':file'  => $file,
 				':type'  => $type,
-				':paths' => join(', ', (array) Kohana::$config->load('asset-merger')->get('load_paths.'.$type)),
+				':paths' => join(', ', (array) Kohana::$config->load('asset-merger.load_paths.'.$type)),
 			));
 		}
 

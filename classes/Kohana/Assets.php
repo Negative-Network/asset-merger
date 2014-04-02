@@ -152,7 +152,7 @@ abstract class Kohana_Assets {
 
 		// Set copy
         if ($copy === NULL){
-            if (Kohana::$config->load('asset-merger')->get('debug')) 
+            if (Kohana::$config->load('asset-merger.debug')) 
             {
                 $this->_copy = FALSE;
             }
@@ -169,7 +169,7 @@ abstract class Kohana_Assets {
 		// Set folder
         if ($folder == NULL)
         {
-            $this->_folder = Kohana::$config->load('asset-merger')->get('folder');
+            $this->_folder = Kohana::$config->load('asset-merger.folder');
         }
         else
         {
@@ -189,7 +189,7 @@ abstract class Kohana_Assets {
 		$this->_destination_path = $destination_path;
 
 		// Set process and merge
-		$this->_process = $this->_merge = (in_array(Kohana::$environment, (array) Kohana::$config->load('asset-merger')->get('merge')) and $this->_copy);
+		$this->_process = $this->_merge = (in_array(Kohana::$environment, (array) Kohana::$config->load('asset-merger.merge')) and $this->_copy);
 	}
 
 	public function name()
