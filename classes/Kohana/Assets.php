@@ -327,6 +327,8 @@ abstract class Kohana_Assets {
 		// Set html
 		$html = $this->_remote;
 
+		$webpaths = array();
+
 		// Go through each asset group
 		foreach ($this->_groups as $type => $group)
 		{
