@@ -269,7 +269,13 @@ abstract class Kohana_Assets {
 
 	function __toString()
 	{
-		return $this->render();
+		try {
+			return $this->render();
+		}
+		catch(Exception $e)
+		{
+			Kohana_Exception::handler($e);
+		}
 	}
 
 	/**
